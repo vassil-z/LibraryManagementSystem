@@ -1,0 +1,136 @@
+﻿@model LibraryManagementSystem.ViewModels.Customers.CustomersIndexVM
+
+@{
+    ViewBag.Title = "Customers Index";
+}
+
+<h3>Customers</h3><hr />
+
+<a href="/Customers/EditCustomer/0">
+    <input type="button" value="New customer" class="btn btn-primary" />
+</a>
+<hr />
+
+@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+{
+    <div style="display:inline-block">
+
+        <div>
+            <h4>Search by name</h4>
+            @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })<br />
+        </div>
+
+        <div>
+            <h4>Search by personal No.</h4>
+            @Html.TextBoxFor(model => model.PersonalNumber, " ", new { @class = "form-control" })<br />
+        </div>
+
+        <div>
+            <h4>Search by email</h4>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })<br />
+        </div>
+
+        <div>
+            <h4>Search by address</h4>
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })<br />
+        </div>
+
+        <div style="display: inline-block;">
+            <h4>Search by birthday</h4>
+            <div style="float:left; margin-right: 10px;">
+                @Html.LabelFor(model => model.BirthdayStartDate, "Start date")<br />
+                @Html.TextBoxFor(model => model.BirthdayStartDate, " ", new { @class = "form-control startDate"})                
+            </div>
+
+            <div style="float:right">
+                @Html.LabelFor(model => model.BirthdayEndDate, "End date")<br />
+                @Html.TextBoxFor(model => model.BirthdayEndDate, " ", new { @class = "form-control endDate" })                
+            </div>
+        </div>
+
+        <div style="display: inline-block;">
+            <h4>Search by date in</h4>
+            <div style="float:left; margin-right: 10px;">
+                @Html.LabelFor(model => model.DateInStartDate, "Start date")<br />
+                @Html.TextBoxFor(model => model.DateInStartDate, " ", new { @class = "form-control startDate" })                
+            </div>
+
+            <div style="float:right">
+                @Html.LabelFor(model => model.DateInEndDate, "End date")<br />
+                @Html.TextBoxFor(model => model.DateInEndDate, " ", new { @class = "form-control endDate" })                
+            </div>
+        </div>
+
+        <div style="display: inline-block;">
+            <h4>Search by date out</h4>
+            <div style="float:left; margin-right: 10px;">
+                @Html.LabelFor(model => model.DateOutStartDate, "Start date")<br />
+                @Html.TextBoxFor(model => model.DateOutStartDate, " ", new { @class = "form-control startDate" })                
+            </div>
+
+            <div style="float:right">
+                @Html.LabelFor(model => model.DateOutEndDate, "End date")<br />
+                @Html.TextBoxFor(model => model.DateOutEndDate, " ", new { @class = "form-control endDate" })                
+            </div>
+        </div>
+
+    </div>
+    <hr />
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Search" />
+        <input class="btn btn-default" type="reset" value="Clear Selection" onclick="location.href='@Url.Action("Index", "Customers")'" />
+    </div>
+    <hr />
+
+    if (Model.CustomersList.Count() <= 0)
+    {
+        <div class="alert alert-info">No customers</div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>@Html.ActionLink("Personal No.", "Index", new { sortOrder = ViewBag.PersonalNumberSortParam })</th>
+                                <th>@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam })</th>
+                                <th>@Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParam })</th>
+                                <th>@Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParam })</th>
+                                <th>@Html.ActionLink("Birthday", "Index", new { sortOrder = ViewBag.BirthdaySortParam })</th>
+                                <th>@Html.ActionLink("Date In", "Index", new { sortOrder = ViewBag.DateInSortParam })</th>
+                                <th>@Html.ActionLink("Date Out", "Index", new { sortOrder = ViewBag.DateOutSortParam })</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var customer in Model.CustomersList)
+                            {
+                                <tr>
+                                    <td>@customer.PersonalNumber</td>
+                                    <td>@customer.FirstName @customer.LastName</td>                                   
+                                    <td>@customer.Email</td>
+                                    <td>@customer.Address</td>
+                                    <td>@customer.Birthday.ToShortDateString()</td>
+                                    <td>@customer.DateIn.ToShortDateString()</td>
+                                    @if (@customer.DateOut != null)
+                                    {
+                                        <td>@customer.DateOut.Value.ToShortDateString()</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red;">Active</td>
+                                    }
+                                    <td><a href="/Customers/EditCustomer/@customer.ID">Edit</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+                            Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.CustomersPager);
+    }
+}

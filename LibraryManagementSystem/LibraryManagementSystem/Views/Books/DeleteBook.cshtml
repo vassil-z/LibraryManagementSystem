@@ -1,0 +1,17 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksDeleteBookVM
+
+@{
+    ViewBag.Title = "Delete " + "\"" + Model.Title + "\"";
+}
+
+<br /><hr />
+<h3>Are you sure you want to delete "@Model.Title"?</h3><hr />
+<div>            
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" style="width:100px;" />           
+        </div>
+    }
+</div>

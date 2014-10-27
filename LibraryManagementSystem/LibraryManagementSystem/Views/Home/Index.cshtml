@@ -1,0 +1,32 @@
+﻿@model LibraryManagementSystem.ViewModels.Home.HomeIndexVM
+
+@{
+    ViewBag.Title = "Home";
+}
+
+@if (LibraryManagementSystem.Models.AuthenticationManager.LoggedUser != null)
+{
+    <div class="jumbotron" style="text-align:center;">
+        <h1>Jones Library</h1>
+        <p class="lead">Welcome to the Jones Library Management System </p>
+        <p><a href="/Rents/EditRent/0" class="btn btn-primary btn-lg">Make a rent</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4" style="text-align:center;">
+            <h2>View books</h2>
+            <p>All books in-stock in the library</p>
+            <p><a class="btn btn-success" href="/Books/Index">Go to Books</a></p>
+        </div>
+        <div class="col-md-4" style="text-align:center;">
+            <h2>View authors</h2>
+            <p>The authors section</p>
+            <p><a class="btn btn-success" href="/Authors/Index">Go to authors</a></p>
+        </div>
+        <div class="col-md-4" style="text-align:center;">
+            <h2>View publishers</h2>
+            <p>All publishers we work with</p>
+            <p><a class="btn btn-success" href="/Publishers/Index">Go to publishers</a></p>
+        </div>
+    </div> 
+}

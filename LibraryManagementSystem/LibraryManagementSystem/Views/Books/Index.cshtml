@@ -1,0 +1,64 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksIndexVM
+
+@{
+    ViewBag.Title = "Books Index";
+}
+
+<h3>Books</h3><hr />
+<a href="/Books/EditBook/0"><input type="button" value="New book" class="btn btn-primary" /></a><hr />
+
+@using (@Html.BeginForm("Index", "Books", FormMethod.Get))
+{
+    <div style="display:inline-block;">
+        <div style="float: left; margin-right: 10px;">
+            <h4>Search by title</h4>
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        </div>
+
+        <div style="float: right;">
+            <h4>Search by publisher</h4>
+            @Html.TextBoxFor(model => model.Publisher, new { @class = "form-control" })
+        </div>
+    </div>
+    <hr />
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Search" />
+        <input class="btn btn-default" type="reset" value="Clear selection" onclick="location.href='@Url.Action("Index", "Books")'" />
+    </div>
+    <hr />
+
+    if (Model.BooksList.Count() <= 0)
+    {
+        <div class="alert alert-info">No books</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>@Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParam })</th>
+                    <th>@Html.ActionLink("Publisher", "Index", new { sortOrder = ViewBag.PublisherSortParam })</th>
+                    <th>@Html.ActionLink("Stock count", "Index", new { sortOrder = ViewBag.StockCountSortParam })</th>
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.BooksList)
+                {
+                    <tr>                        
+                        <td>@item.Title</td>
+                        <td>@item.Publisher.Name</td>
+                        <td>@item.StockCount</td>
+                        <td><a href="/Books/Details/@item.ID">Details</a></td>
+                        <td><a href="/Books/ListBookBarcodes/@item.ID">Barcodes</a></td>
+                        <td><a href="/Books/EditBook/@item.ID">Edit</a></td>
+                        <td><a href="/Books/DeleteBook/@item.ID">Delete</a></td>                        
+                    </tr>
+                }
+            </tbody>
+        </table>       
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.BooksPager);
+}

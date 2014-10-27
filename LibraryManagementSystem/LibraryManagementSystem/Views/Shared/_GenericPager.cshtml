@@ -1,0 +1,66 @@
+﻿@model LibraryManagementSystem.ViewModels.Pager.GenericPagerVM
+
+<link href="~/Content/genericPager.css" rel="stylesheet" />
+
+<div role="form" class="genPager form-inline">
+    <div class="genPager form-group" id="links">
+        @if (Model.CurrentPage != 0 && Model.CurrentPage != 1)
+        {
+            Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = 1;
+            @Html.ActionLink("First", Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+            
+            Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = 1;
+            @Html.ActionLink("Previous", Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+        }
+    </div>
+    
+    @if (Model.PagesCount < 6)
+    {
+        for (int i = 0; i < Model.PagesCount; i++)
+        {
+            Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = i + 1;
+            @Html.ActionLink((i + 1).ToString(), Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+        }
+    }
+    else
+    {
+        if ((Model.PagesCount - Model.CurrentPage) > Math.Min(Model.CurrentPage + 1, Model.PagesCount))
+        {
+            for (int i = Model.CurrentPage; i < Math.Min(Model.CurrentPage + 6, Model.PagesCount); i++)
+            {
+                Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = i;
+                @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+            }
+        }
+        if ((Model.PagesCount - Model.CurrentPage) <= Math.Min(Model.CurrentPage + 1, Model.PagesCount))
+        {
+            if (Model.CurrentPage == Model.PagesCount)
+            {
+                for (int i = Math.Max(1, Model.CurrentPage - 5); i <= Math.Min(Model.CurrentPage + 1, Model.PagesCount); i++)
+                {
+                    Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = i;
+                    @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+                }
+            }
+            else
+            {
+                for (int i = Math.Max(1, Model.CurrentPage - 4); i <= Math.Min(Model.CurrentPage + 1, Model.PagesCount); i++)
+                {
+                    Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = i;
+                    @Html.ActionLink(i.ToString(), Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+                }
+            }
+        }
+    }
+
+    <div class="genPager form-group">
+        @if (Model.CurrentPage != 0 && Model.CurrentPage != Model.PagesCount)
+        {
+            Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = Model.CurrentPage + 1;
+            @Html.ActionLink("Next", Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+            
+            Model.CurrentParameters[Model.Prefix + ".CurrentPage"] = Model.PagesCount;
+            @Html.ActionLink("Last", Model.Action, Model.Controller, new RouteValueDictionary(Model.CurrentParameters))
+        }
+    </div>
+</div>

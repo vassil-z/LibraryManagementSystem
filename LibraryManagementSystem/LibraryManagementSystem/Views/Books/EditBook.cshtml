@@ -1,0 +1,81 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksEditBookVM
+
+@{
+    if (Model.ID > 0)
+    {
+        ViewBag.Title = "Edit book";
+        <h3>Edit book</h3>
+    }
+    else
+    {
+        ViewBag.Title = "Add book";
+        <h3>Add book</h3>
+    }
+}
+<hr />
+
+@using (Html.BeginForm("EditBook", "Books", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title, null, new { @style = "color:red;!important" })
+                </div>               
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PublisherID, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.PublisherID, Model.Publishers, "Select publisher", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PublisherID, null, new { @style = "color:red;!important" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StockCount, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.StockCount, " ", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StockCount, null, new { @style = "color:red;!important" })
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DeliveryPrice, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.DeliveryPrice, "{0:F2}", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DeliveryPrice, null, new { @style = "color:red;!important" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DatePublished, new { @class = "control-label" })
+                    @if (Model.ID > 0)
+                    {
+                        @Html.TextBoxFor(model => model.DatePublished, Model.DatePublished.ToShortDateString(), new { @class = "form-control startDate" });
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.DatePublished, " ", new { @class = "form-control startDate" });
+                    }
+                    @Html.ValidationMessageFor(model => model.DatePublished, null, new { @style = "color:red;!important" })
+                </div> 
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateReceived, new { @class = "control-label" })
+                    @if (Model.ID > 0)
+                    {
+                        @Html.TextBoxFor(model => model.DateReceived, Model.DateReceived.ToShortDateString(), new { @class = "form-control endDate" });
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.DateReceived, " ", new { @class = "form-control endDate" });
+                    }
+                    @Html.ValidationMessageFor(model => model.DateReceived, null, new { @style = "color:red;!important" })
+                </div>
+                                                
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>             
+            </div>
+        </div>
+    </div>       
+}

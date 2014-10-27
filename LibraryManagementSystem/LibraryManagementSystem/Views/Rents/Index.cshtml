@@ -1,0 +1,84 @@
+﻿@model LibraryManagementSystem.ViewModels.Rents.RentsIndexVM
+@{
+    ViewBag.Title = "Rents Index";
+}
+
+<h3>Rents</h3><hr />
+<a href="/Rents/EditRent/0"><input type="button" value="Make a rent" class="btn btn-primary" /></a><hr />
+
+@using (@Html.BeginForm("Index", "Rents", FormMethod.Get))
+{
+    <div style="display:inline-block">
+        <div>
+            <h4>Search by book</h4>
+            @Html.TextBoxFor(model => model.BookTitle, new { @class = "form-control" })<br />
+        </div>
+
+        <div>
+            <div style="float:left">
+                <h4>Search by user</h4>
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })<br /> 
+             </div>               
+
+            <div style="float:right">
+                <h4>Search by customer</h4>
+                @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })<br />                
+            </div>
+        </div>
+
+        <div style="display: inline-block;">
+            <h4>Search by date</h4>
+            <div style="float:left; margin-right: 10px;">
+                @Html.LabelFor(model => model.StartDate)<br />
+                @Html.TextBoxFor(model => model.StartDate, " ", new { @class = "form-control startDate" })                
+            </div>
+
+            <div style="float:right">
+                @Html.LabelFor(model => model.EndDate)<br />
+                @Html.TextBoxFor(model => model.EndDate, " ", new { @class = "form-control endDate" })                
+            </div>
+        </div>
+
+    </div>
+    <hr />
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Search" />
+        <input class="btn btn-default" type="reset" value="Clear Selection" onclick="location.href='@Url.Action("Index", "Rents")'" />
+    </div>
+    <hr />
+
+    if (Model.RentsList.Count() <= 0)
+    {
+        <div class="alert alert-info">No rents</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>@Html.ActionLink("Rent date", "Index", new { sortOrder = ViewBag.RentDateSortParam })</th>
+                    <th>@Html.ActionLink("Date to return", "Index", new { sortOrder = ViewBag.DateToReturnSortParam })</th>
+                    <th>@Html.ActionLink("Book", "Index", new { sortOrder = ViewBag.BookSortParam })</th>
+                    <th>@Html.ActionLink("Employee", "Index", new { sortOrder = ViewBag.UserSortParam })</th>
+                    <th>@Html.ActionLink("Customer", "Index", new { sortOrder = ViewBag.CustomerSortParam })</th>                              
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.RentsList)
+                {
+                    <tr>
+                        <td>@item.RentDate.ToShortDateString()</td>
+                        <td>@item.DateToReturn.ToShortDateString()</td>
+                        <td>@item.Books.FirstOrDefault()</td>
+                        <td>@item.User</td>
+                        <td>@item.Customer</td>                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.RentsPager);
+}

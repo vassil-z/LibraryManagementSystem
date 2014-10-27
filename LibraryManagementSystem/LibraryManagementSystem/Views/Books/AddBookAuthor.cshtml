@@ -1,0 +1,30 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksAddBookAuthorVM
+
+@{
+    ViewBag.Title = Model.Title + " " + "Add author";
+}
+
+<h3>@Model.Title</h3><hr />
+<h4>Add author</h4><hr />
+
+@using (@Html.BeginForm("AddBookAuthor", "Books", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AuthorID, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.AuthorID, Model.Authors, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AuthorID, null, new { @style = "color:red;!important" })
+                </div>                
+
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>    
+}

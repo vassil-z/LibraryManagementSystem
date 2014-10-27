@@ -1,0 +1,58 @@
+﻿@model LibraryManagementSystem.ViewModels.Publishers.PublishersDetailsVM
+
+@{
+    ViewBag.Title = "Details - " + Model.PublisherName;
+}  
+
+<h3>@Model.PublisherName</h3><hr />
+<h4>Address: @Model.Address</h4><hr />
+<a href="/Publishers/EditPublisher/@Model.ID"><input type="button" value="Edit publisher" class="btn btn-primary" /></a><hr />
+<h5>Books</h5><hr />
+
+@using (@Html.BeginForm("Details", "Publishers", FormMethod.Get))
+{
+    <div style="display:inline-block;">
+        <div style="float: left; margin-right: 10px;">
+            <h4>Search by book</h4>
+            @Html.TextBoxFor(model => model.BookTitle, new { @class = "form-control" })
+        </div>
+    </div>
+    <hr />
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Search" />
+        <input class="btn btn-default" type="reset" value="Clear selection" onclick="location.href='@Url.Action("Details/" + Model.ID , "Publishers")'" />
+    </div>
+    <hr />
+
+
+    if (Model.Books.Count() <= 0)
+    {
+        <div class="alert alert-info">No books</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>@Html.ActionLink("Title", "Details", new { sortOrder = ViewBag.BookSortParam })</th>
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Books)
+                {
+                    <tr>
+                        <td>@item.Title</td>                                                
+                        <td><a href="/Books/Details/@item.ID">Details</a></td>
+                        <td><a href="/Books/ListBookBarcodes/@item.ID">Barcodes</a></td>                        
+                        <td><a href="/Books/EditBook/@item.ID">Edit</a></td>
+                        <td><a href="/Books/DeleteBook/@item.ID">Delete</a></td>              
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.BooksPager);
+}

@@ -1,0 +1,17 @@
+﻿@model LibraryManagementSystem.ViewModels.Barcodes.BarcodesDeleteBarcodeVM
+
+@{
+    ViewBag.Title = "Delete " + "\"" + Model.BarcodeNumber + "\"";
+}
+
+<br /><hr />
+<h3>Are you sure you want to delete barcode "@Model.BarcodeNumber"?</h3><hr />
+<div>    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" style="width:100px;" />             
+        </div>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model LibraryManagementSystem.ViewModels.Authors.AuthorsEditAuthorVM
+
+@{
+    if (Model.ID > 0)
+    {
+        ViewBag.Title = "Edit author";
+        <h3>Edit author</h3>
+    }
+    else
+    {
+        ViewBag.Title = "Add author";
+        <h3>Add author</h3>
+    }
+}
+<hr />
+
+@using (Html.BeginForm("EditAuthor", "Authors", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">      
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FirstName, null, new { @style = "color:red;!important" })
+                </div>                
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LastName, null, new { @style = "color:red;!important" })
+                </div>                              
+
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>            
+}  

@@ -1,0 +1,67 @@
+﻿@model LibraryManagementSystem.ViewModels.Rents.RentsEditRentVM
+
+@{
+    if (Model.ID > 0)
+    {
+        ViewBag.Title = "Edit rent";
+        <h3>Edit rent</h3>
+    }
+    else
+    {
+        ViewBag.Title = "Make a rent";
+        <h3>Make a rent</h3>
+    }
+}
+<hr />
+
+@Html.LabelFor(model => model.UserID,
+        "Employee: " + LibraryManagementSystem.Models.AuthenticationManager.LoggedUser.ToString(),
+        new { @class = "control-label" })
+<hr />
+
+@using (Html.BeginForm("EditRent", "Rents", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.UserID)
+    <div class="form-horizontal">
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RentDate, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.RentDate, Model.RentDate.ToShortDateString(), new { @class = "form-control startDate" })
+                    @Html.ValidationMessageFor(model => model.RentDate, null, new { @style = "color:red;!important" })
+                </div>
+
+                <div class="form-group">
+                    <label>Insert customer's personal No.</label><br />
+                    <input id="customer" class="form-control" list="customers" name="customerInfo" style="width:500px;" />
+                    @Html.ValidationMessageFor(model => model.CustomerPersonalNumber, null, new { @style = "color:red;!important" })
+                    <datalist id="customers">
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <option value="@customer.PersonalNumber - @customer"></option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label>Insert book barcode</label><br />
+                    <input id="book" class="form-control" list="books" name="bookInfo" style="width:500px;" />
+                    @Html.ValidationMessageFor(model => model.BookBarcodeNumber, null, new { @style = "color:red;!important" })
+                    <datalist id="books">
+                        @foreach (var book in Model.Books)
+                        {
+                            <option value="@book.Barcodes.FirstOrDefault() - @book.Title"></option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+} 

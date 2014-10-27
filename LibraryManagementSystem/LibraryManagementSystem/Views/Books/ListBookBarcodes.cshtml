@@ -1,0 +1,41 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksListBookBarcodesVM
+
+@{
+    ViewBag.Title = Model.BookTitle + " " + "barcodes";
+}
+
+<h3>@Model.BookTitle</h3><hr />
+<a href="/Barcodes/EditBarcode/0/@Model.BookID">
+    <input type="button" value="New barcode" class="btn btn-primary" />
+</a><hr />
+
+@using (@Html.BeginForm("ListBookBarcodes", "Books", FormMethod.Get))
+{    
+    if (Model.Barcodes.Count() <= 0)
+    {
+        <div class="alert alert-info">No barcodes</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>Barcode(s)</th>                    
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Barcodes)
+                {
+                    <tr>
+                        <td>@item.BarcodeNumber</td>                        
+                        <td><a href="/Barcodes/EditBarcode/@item.ID/@item.BookID">Edit</a></td>
+                        <td><a href="/Barcodes/DeleteBarcode/@item.ID">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.BarcodesPager);
+}

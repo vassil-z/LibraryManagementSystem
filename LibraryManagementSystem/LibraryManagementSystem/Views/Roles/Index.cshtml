@@ -1,0 +1,48 @@
+﻿@model LibraryManagementSystem.ViewModels.Roles.RolesIndexVM
+
+@{
+    ViewBag.Title = "Roles Index";
+}
+
+<h3>Roles</h3><hr />
+<a href="/Roles/EditRole/0"><input type="button" value="New role" class="btn btn-primary" /></a><hr />
+
+@if (Model.RolesList.Count() <= 0)
+{
+    <div class="alert alert-info">No roles</div>
+}
+else
+{
+    <table class="table"
+           id="dataTables-example" aria-describedby="dataTables-example_info">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.RolesList)
+            {                
+                <tr>
+                    <td>@Html.DisplayFor(r => role.Name)</td>
+                    <td>
+                        <div>
+                            @foreach (var action in role.AuthenticatingActions)
+                            {                                    
+                                @action.AuthenticationController.Name @:&nbsp;-&nbsp; @action.Name<br />                                
+                            }                          
+                        </div>
+                    </td>
+                    <td><a href="/Roles/EditRole/@role.ID">Edit</a></td>
+                    <td><a href="/Roles/DeleteRole/@role.ID">Delete</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div>
+        @{Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.RolesPager);}
+    </div>
+}

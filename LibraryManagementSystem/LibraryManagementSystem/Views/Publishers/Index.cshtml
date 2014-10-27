@@ -1,0 +1,66 @@
+﻿@model LibraryManagementSystem.ViewModels.Publishers.PublishersIndexVM
+
+@{
+    ViewBag.Title = "Publishers Index";
+}
+
+<h3>Publishers</h3>
+<hr />
+
+<a href="/Publishers/EditPublisher/0">
+    <input type="button" value="New publisher" class="btn btn-primary" />
+</a>
+<hr />
+
+@using (@Html.BeginForm("Index", "Publishers", FormMethod.Get))
+{
+    <div style = "display:inline-block" >
+        <div>
+            <h4>Search by name</h4>
+            @Html.TextBoxFor(model => model.PublisherName, new { @class = "form-control" })<br />
+        </div>
+
+        <div>
+            <h4>Search by address</h4>
+            @Html.TextBoxFor(model => model.PublisherAddress, new { @class = "form-control" })<br />
+        </div>
+    </div>
+
+        <hr />
+
+        <div>
+            <input class="btn btn-success" type="submit" value="Search" />
+            <input class="btn btn-default" type="reset" value="Clear Selection" onclick="location.href='@Url.Action("Index", "Publishers")'" />
+        </div>
+        <hr />
+
+    if (Model.PublishersList.Count() <= 0)
+    {
+        <div class="alert alert-info">No publishers</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.PublisherSortParam })</th>
+                    <th>@Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.AddressSortParam })</th>                 
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PublishersList)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Address</td>                        
+                        <td><a href="/Publishers/Details/@item.ID">Details</a></td>                        
+                        <td><a href="/Publishers/EditPublisher/@item.ID">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.PublishersPager);
+}

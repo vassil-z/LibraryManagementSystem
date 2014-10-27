@@ -1,0 +1,39 @@
+﻿@model LibraryManagementSystem.ViewModels.Books.BooksReturnBookVM
+
+@{
+    ViewBag.Title = "Return book";
+    <h3>Edit rent</h3>
+}
+<hr />
+
+@using (Html.BeginForm("ReturnBook", "Books", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <div class="form-horizontal">
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateReturned, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.DateReturned, Model.DateReturned.ToShortDateString(), new { @class = "form-control startDate" })
+                    @Html.ValidationMessageFor(model => model.DateReturned, null, new { @style = "color:red;!important" })
+                </div>
+
+                <div class="form-group">
+                    <label>Insert book barcode</label><br />
+                    <input class="form-control" list="books" name="bookInfo" style="width:500px;" />
+                    @Html.ValidationMessageFor(model => model.BookBarcodeNumber, null, new { @style = "color:red;!important" })
+                    <datalist id="books">
+                        @foreach (var book in Model.Books)
+                        {
+                            <option value="@book.Barcodes.FirstOrDefault() - @book.Title"></option>
+                        }
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+}  

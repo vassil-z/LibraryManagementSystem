@@ -1,0 +1,42 @@
+﻿@model LibraryManagementSystem.ViewModels.Publishers.PublishersEditPublisherVM
+@{
+    if (Model.ID > 0)
+    {
+        ViewBag.Title = "Edit publisher";
+        <h3>Edit publisher</h3>
+    }
+    else
+    {
+        ViewBag.Title = "Add publisher";
+        <h3>Add publisher</h3>
+    }
+}
+<hr />
+
+@using (Html.BeginForm("EditPublisher", "Publishers", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">
+        <div class="col-xs-10 col-md-4">
+            <div style="margin-left: 30px;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name, null, new { @style = "color:red;!important" })
+                </div>               
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Address, null, new { @style = "color:red;!important" })
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" style="width:100px;" value="Save" class="btn btn-success" />
+                </div>                            
+            </div>
+        </div>
+    </div>    
+}  

@@ -1,0 +1,17 @@
+﻿@model LibraryManagementSystem.ViewModels.Roles.RolesDeleteRoleVM
+
+@{
+    ViewBag.Title = "Delete role " + "\"" + Model.Name + "\"";
+}
+
+<br /><hr />
+<h3>Are you sure you want to delete role "@Model.Name"?</h3><hr />
+<div>   
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" style="width:100px;" />              
+        </div>
+    }
+</div>

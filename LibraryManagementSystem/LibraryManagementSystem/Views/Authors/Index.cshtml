@@ -1,0 +1,59 @@
+﻿@model LibraryManagementSystem.ViewModels.Authors.AuthorsIndexVM
+
+@{
+    ViewBag.Title = "Authors Index";
+}
+
+<h3>Authors</h3>
+<hr />
+
+<a href="/Authors/EditAuthor/0">
+    <input type="button" value="New author" class="btn btn-primary" />
+</a>
+<hr />
+
+@using (@Html.BeginForm("Index", "Authors", FormMethod.Get))
+{
+    <div style="display:inline-block">
+        <div>
+            <h4>Search by name</h4>
+            @Html.TextBoxFor(model => model.AuthorName, new { @class = "form-control" })<br />
+        </div>
+    </div>
+
+    <hr />
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Search" />
+        <input class="btn btn-default" type="reset" value="Clear Selection" onclick="location.href='@Url.Action("Index", "Authors")'" />
+    </div>
+    <hr />
+
+    if (Model.AuthorsList.Count() <= 0)
+    {
+        <div class="alert alert-info">No authors</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <th>@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam })</th>
+                    <th colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AuthorsList)
+                {
+                    <tr>
+                        <td>@item</td>
+                        <td><a href="/Authors/Details/@item.ID">Details</a></td>
+                        <td><a href="/Authors/EditAuthor/@item.ID">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    Html.RenderPartial("~/Views/Shared/_GenericPager.cshtml", Model.AuthorsPager);
+}

@@ -1,0 +1,27 @@
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\gargaml\Documents\Visual Studio 2013\Projects\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\gargaml\Desktop\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.pdb
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll.config
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.dll
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\DataAccess.pdb
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.dll
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.xml
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.dll
+D:\OneDrive\Some projects\LibManSys\Current\LibraryManagementSystem\DataAccess\obj\Debug\DataAccess.pdb
