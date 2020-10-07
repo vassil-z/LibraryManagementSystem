@@ -20,13 +20,13 @@
             @Html.TextBoxFor(model => model.Publisher, new { @class = "form-control" })
         </div>
     </div>
-    <hr />
+    <hr>
 
     <div>
         <input class="btn btn-success" type="submit" value="Search" />
         <input class="btn btn-default" type="reset" value="Clear selection" onclick="location.href='@Url.Action("Index", "Books")'" />
     </div>
-    <hr />
+    <hr>
 
     if (Model.BooksList.Count() <= 0)
     {
